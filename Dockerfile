@@ -26,7 +26,7 @@ ARG GIT_FLOW_GITHUB='https://github.com/petervanderdoes/gitflow-avh.git'
 ARG GIT_FLOW_DIR='gitflow-avh'
 
 RUN groupadd --gid 1000 app && \
-    useradd --home-dir /home/app --shell /bin/bash --uid 1000 --gid 1000 app && \
+    useradd --create-home --shell /bin/bash --uid 1000 --gid 1000 app && \
     mkdir -p /data
 
 RUN apt-get update && apt-get -y install wget curl fzf ripgrep tree git xclip python3 python3-pip nodejs npm tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip subversion libgtk-4-dev
