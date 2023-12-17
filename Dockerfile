@@ -5,7 +5,7 @@ RUN go mod init build && \
     go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 WORKDIR /src/lazygit
 RUN go mod init build && \
-    go get https://github.com/jesseduffield/lazygit@v0.40.2 && \
+    go get https://github.com/jesseduffield/lazygit@latest && \
     go build -o /bin/lazygit github.com/jesseduffield/lazygit
 
 FROM rust:1.74-bookworm AS gnvim
