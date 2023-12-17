@@ -49,11 +49,10 @@ RUN mkdir -p /home/app/.local/share/nvim/site
 RUN cd /home/app/.local/share/nvim/site && svn export https://github.com/MashMB/nvim-ide.git/trunk/nvim/spell
 RUN nvim --headless +PlugInstall +qall
 RUN mkdir -p /home/app/.config/coc/extensions
-RUN cd /home/app/.config/coc/extensions && npm install $COC --global --omit=dev
-
-
 
 USER root
+RUN cd /home/app/.config/coc/extensions && npm install $COC --global --omit=dev
+
 RUN apt-get update && apt-get install -y golang
 
 RUN git clone https://github.com/jesseduffield/lazygit.git
