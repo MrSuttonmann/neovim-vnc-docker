@@ -40,23 +40,20 @@ RUN cd /root/TMP && git clone https://github.com/neovim/neovim
 RUN cd /root/TMP/neovim && git checkout stable && make -j4 && make install
 RUN rm -rf /root/TMP
 
-RUN mkdir -p /home/app/.local/share/nvim/site
-RUN cd /home/app/.local/share/nvim/site && svn export https://github.com/MashMB/nvim-ide.git/trunk/nvim/spell
-
-
-RUN curl -fLo /home/app/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-RUN mkdir -p /home/app/.config/nvim
-RUN cd /home/app/.config/nvim && svn export https://github.com/MashMB/nvim-ide.git/trunk/nvim/config
 
 USER app
+RUN curl -fLo /home/app/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN mkdir -p /home/app/.config/nvim
+RUN cd /home/app/.config/nvim && svn export https://github.com/MashMB/nvim-ide.git/trunk/nvim/config
+RUN mkdir -p /home/app/.local/share/nvim/site
+RUN cd /home/app/.local/share/nvim/site && svn export https://github.com/MashMB/nvim-ide.git/trunk/nvim/spell
 RUN nvim --headless +PlugInstall +qall
-USER root
-
 RUN mkdir -p /home/app/.config/coc/extensions
-
 RUN cd /home/app/.config/coc/extensions && npm install $COC --global --omit=dev
 
+
+
+USER root
 RUN apt-get update && apt-get install -y golang
 
 RUN git clone https://github.com/jesseduffield/lazygit.git
