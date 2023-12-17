@@ -22,8 +22,6 @@ ENV TZ=Europe/London
 EXPOSE 8080
 
 ARG COC='coc-css coc-eslint coc-html coc-json coc-sh coc-sql coc-tsserver coc-yaml'
-
-
 ARG GIT_FLOW_GITHUB='https://github.com/petervanderdoes/gitflow-avh.git'
 ARG GIT_FLOW_DIR='gitflow-avh'
 
@@ -51,7 +49,9 @@ RUN curl -fLo /home/app/.local/share/nvim/site/autoload/plug.vim --create-dirs h
 RUN mkdir -p /home/app/.config/nvim
 RUN cd /home/app/.config/nvim && svn export https://github.com/MashMB/nvim-ide.git/trunk/nvim/config
 
+USER app
 RUN nvim --headless +PlugInstall +qall
+USER root
 
 RUN mkdir -p /home/app/.config/coc/extensions
 
